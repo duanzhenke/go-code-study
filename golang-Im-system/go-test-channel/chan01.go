@@ -10,7 +10,7 @@ func sendData(ch chan int) {
 	ch <- 42 // 发送数据到通道
 }
 
-func main() {
+func Dzk01() {
 	ch := make(chan int) // 创建一个无缓冲通道
 
 	go sendData(ch) // 启动一个新的 goroutine 来发送数据

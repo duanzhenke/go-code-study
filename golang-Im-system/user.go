@@ -6,7 +6,7 @@ type User struct {
 	Name string
 	Addr string
 	C    chan string
-	conn net.Conn
+	Conn net.Conn
 }
 
 func NewUser(conn net.Conn) *User {
@@ -16,7 +16,7 @@ func NewUser(conn net.Conn) *User {
 		Name: strAddr,
 		Addr: strAddr,
 		C:    make(chan string),
-		conn: conn,
+		Conn: conn,
 	}
 	go user.ListenMessage()
 	return user
@@ -25,6 +25,6 @@ func NewUser(conn net.Conn) *User {
 func (r *User) ListenMessage() {
 	for {
 		msg := <-r.C
-		r.conn.Write([]byte(msg + "\n"))
+		r.Conn.Write([]byte(msg + "\n"))
 	}
 }
