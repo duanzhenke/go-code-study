@@ -1,4 +1,4 @@
-package main
+package go_test_channel
 
 import (
 	"fmt"
@@ -11,11 +11,11 @@ func sendData(ch chan int) {
 }
 
 func main() {
-	ch := make(chan int, 1) // 创建一个有缓冲通道，缓冲区大小为1
+	ch := make(chan int) // 创建一个无缓冲通道
 
 	go sendData(ch) // 启动一个新的 goroutine 来发送数据
 
-	// 主 goroutine 不会立即阻塞，因为通道有一个空闲的缓冲区位置
+	// 主 goroutine 阻塞在这里，直到从通道接收到数据
 	data := <-ch
 	fmt.Println("Received data:", data)
 }
