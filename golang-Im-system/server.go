@@ -6,23 +6,24 @@ import (
 	"strconv"
 )
 
-type server struct {
+type Server struct {
 	Ip   string
 	Port int
 }
 
 // 创建一个server接口
-func (receiver server) NewServer(ip string, port int) *server {
-	server := &server{
+func NewServer(ip string, port int) *Server {
+	server := &Server{
 		Ip:   ip,
 		Port: port,
 	}
 	return server
 }
 
-func (s *server) Start() {
+func (s *Server) Start() {
 	//socket listen
-	listen, err := net.Listen("tcp", s.Ip+":"+strconv.Itoa(s.Port))
+	addStr := s.Ip + ":" + strconv.Itoa(s.Port)
+	listen, err := net.Listen("tcp", addStr)
 	if err != nil {
 		fmt.Println("listen err:", err)
 		return
@@ -43,7 +44,7 @@ func (s *server) Start() {
 
 }
 
-func (s *server) Handler(conn net.Conn) {
+func (s *Server) Handler(conn net.Conn) {
 	// 当前链接的逻辑
 	fmt.Println("链接建立成功了")
 }
